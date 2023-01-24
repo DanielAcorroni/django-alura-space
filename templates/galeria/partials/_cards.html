@@ -1,0 +1,18 @@
+{% load static %}
+{% for card_id, info in cards.items %}
+<li class="card">
+    <a href="{% url 'imagem' %}">
+        <img class="card__imagem" src="{% static '/assets/imagens/galeria/carina-nebula.png' %}" alt="foto">
+    </a>
+    <span class="card__tag">Estrelas</span>
+    <div class="card__info">
+        <p class="card__titulo">{{ info.nome }}</p>
+        <div class="card__texto">
+            <p class="card__descricao">{{ info.legenda }}</p>
+            <span>
+                <img src="{% static '/assets/ícones/1x/favorite_outline.png' %}" alt="ícone de coração">
+            </span>
+        </div>
+    </div>
+  </li>
+{% endfor %}
