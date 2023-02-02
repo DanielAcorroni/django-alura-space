@@ -28,4 +28,35 @@ def login(request):
 
     return render(request, "usuarios/login.html", {"form": form})
 
-# Create your views here.
+
+def cadastro(request):
+    form = CadastroForms()
+
+    if request.method == "POST":
+        form = CadastroForms(request.POST)
+
+        if form.is_valid():
+            if form["senha_1"].value() != form["senha_2"].value():
+                messages.error(request, "Senhas não são iguais")
+                return redirect("cadastro")
+
+            nome = form["nome_cadastro"].value()
+            email = form["email"].value()
+            senha = form["senha_1"].value()
+
+            if User.objects.filter(username=nome).exists():
+                messages.error(request, "Usuário já existente!")
+                return redirect("cadastro")
+
+            if User.objects.filter(email=email).exists():
+                messages.error(request, "Email já existente!")
+                return redirect("cadastro")
+
+            usuario = User.objects.create_user(
+                username=nome, email=email, password=senha
+            )
+            usuario.save()
+            messages.success(request, "Cadastro realizado com sucesso!")
+            return redirect("login")
+
+    return render(request, "usuarios/cadastro.html", {"form": form})
