@@ -1,4 +1,4 @@
-{% extends 'galeria/base.html' %}
+{% extends '../base.html' %}
 {% load static %}
 {% block content %}
 <section class="conteudo">
@@ -21,7 +21,7 @@
             <ul class="cards__lista">
               {% if cards %}
               {% for fotografia in cards %}
-              <li class="card">
+              <li class="space-card">
                   <a href="{% url 'imagem' fotografia.id %}">
                       {% if fotografia.foto == '' or fotografia.foto == null %}
                       <img class="card__imagem" src="{% static '/assets/imagens/galeria/img-not-found.png'%}" alt="foto">
@@ -42,7 +42,7 @@
               </li>
               {% endfor %}
               {% else %}
-              <li class="card">
+              <li class="space-card">
                       <img class="card__imagem" src="{% static '/assets/imagens/galeria/img-not-found.png'%}" alt="foto">
                   <div class="card__info">
                       <p class="card__titulo">Não encontramos nenhuma foto :/</p>
